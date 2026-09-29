@@ -15,19 +15,29 @@ for "pmi-simple" builds. Therefore, OpenMPI, SOS, and OSSS all must be
 built with PMIX linked.
 
 An already installed pmix installation exists at:
-/opt/apps/nfs/spack-v0.23/opt/spack/linux-rocky9-zen4/gcc-11.4.1/pmix-5.0.3-735lncs2efktvnkbxlwp7okfsbc3euhu
+`/opt/apps/nfs/spack-v0.23/opt/spack/linux-rocky9-zen4/gcc-11.4.1/pmix-5.0.3-735lncs2efktvnkbxlwp7okfsbc3euhu`.
 If you use this, change PMIX_DIR in `~/.bash_profile`.
 
-Alternatively, to build PMIX from source. PMIX requires libev.
-You must therefore build libev first, then pmix (see scripts).
+Alternatively, to build PMIX from source, you must first build libev,
+then pmix.
 
 libfabric + SOS
 ================
-REPACSS is an IB cluster, so a verbs provider/transport should be
-used for performant multi-node runtimes.
-
 SOS is built over libfabric; it also support UCX but that is
 experimental per their wiki page.
+
+REPACSS is an IB cluster, so the libfabric verbs+ofi_rxm providers
+should be configured and used for performant multi-node runtimes.
+See the SOS wiki page on building for verbs providers for reference.
+
+Note on runtime variables: setting the following environmental
+variables helps improve performance and avoid errors:
+  - `SHMEM_OFI_PROVIDER=verbs;ofi_rxm` helps libfabric choose
+    correct providers
+  - `FI_VERBS_DEVICE_NAME=mlx5_2` (or alternative device) avoids
+    initialization hang from different PEs choosing different devices
+    on different nodes
+  - `FI_MR_CACHE_MAX_COUNT=0` avoids memory registration cache issues
 
 Note on ScoreP: ScoreP is a profiling library for profiling MPI
 and OpenSHMEM application. The scorep build script is for linking
@@ -43,7 +53,7 @@ OSSS is build over UCX, which in general has better verbs support
 than libfabric. I have found OSSS to be more slighty more performant
 on REPACSS than SOS.
 
-OSSS doesn't build its own launcher, but expects to use OpenMPI's
+OSSS does not build its own launcher, but expects to use OpenMPI's
 launcher. Therefore, build UCX and OpenMPI first, then OSSS.
 
 Note on OpenMPI: the build script manually links to a spack PMIX,
@@ -53,3 +63,8 @@ installing with custom built libraries. You can try to though.
 Note on OSSS launcher: the `oshrun` launcher built by OSSS requires
 Python 3.12. Any other python version will fail. Ensure that Python
 3.12 is available in your environment before using the launcher.
+
+Note on runtime variables:
+  - If you do fancy things with memory, setting `UCX_MEM_EVENTS=no`
+    can help avoid the verbs transport reacting to memory events and
+    then invalidating rkeys your application still wants to use
