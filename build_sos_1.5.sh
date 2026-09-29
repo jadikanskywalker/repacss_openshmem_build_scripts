@@ -20,11 +20,6 @@ cd SOS
 
 git submodule update --init
 
-# NOTE: we could patch src/transport_ofi.c so support libfabric2.3.0 mr_, redownload at your own risk
-# git checkout src/transport_ofi.c
-
-# Patch transport_ofi.c to include FI_MR_LOCAL required by Libfabric 2.x "verbs;ofi_rxm"
-# sed -i '/#ifdef ENABLE_MR_ENDPOINT/i #ifdef FI_MR_LOCAL\n    domain_attr.mr_mode |= FI_MR_LOCAL;\n#endif\n' src/transport_ofi.c
 echo $HLINE
 echo "            RUNNING AUTOGEN"
 echo $HLINE
@@ -50,17 +45,21 @@ echo
   --enable-hard-polling \
   --enable-ofi-mr=basic \
   --with-ofi=$LIBFABRIC_DIR \
-  --with-cma
-  # --enable-shr-atomics    # does not work on REPACSS
-  #--with-pmix=/opt/apps/nfs/spack-v0.23/opt/spack/linux-rocky9-zen4/gcc-11.4.1/pmix-5.0.3-735lncs2efktvnkbxlwp7okfsbc3euhu      built manually with gcc 15 \
-  #--enable-pmi-simple      # did not work for me      \
-  #--enable-ofi-mr=basic          \
-  #--with-ucx=$UCX_DIR            \
+  --with-cma #             --> more efficient intra-node transport
+  # --enable-hard-polling  --> signficantly improves performance for SOS + OFI verbs
+  # --enable-ofi-mr=basic  --> required for OFI verbs to work
+  # --enable-shr-atomics     X   does not work on REPACSS
+  # --enable-pmi-simple      X   does not work on REPACSS (slurm has no simple pmi plugin)
+  # --with-xpmem             X   does not work on REPACSS (library not fully installed)
+  # --with-pmix=/opt/apps/nfs/spack-v0.23/opt/spack/linux-rocky9-zen4/gcc-11.4.1/pmix-5.0.3-735lncs2efktvnkbxlwp7okfsbc3euhu
+  #                       could be tried instead of $PMIX_DIR, to avoid building PMIX from source
+  # --enable-profiling    adds pshmem interface for scorep to profile openshmem functions
+  # --with-ucx=$UCX_DIR   experimental, see the SOS build with UCX wiki page
 
 echo $HLINE
 echo "            COMPILING"
 echo $HLINE
-# export SHMEM_OFI_PROVIDER="verbs;ofi_rxm"
-# make -j $CORES check
-# make -j $CORES install
+export SHMEM_OFI_PROVIDER="verbs;ofi_rxm"
+make -j $CORES  # you may need to designate the launcher for the check tests, see SOS building instructions
+make -j $CORES install
 

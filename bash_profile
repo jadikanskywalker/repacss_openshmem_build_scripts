@@ -29,25 +29,11 @@ s() { for ((i=1; i<=$1; i++)); do printf '\n'; done; }
 # ---------------------------------------------------------
 #             Built-from-source sw paths
 # ---------------------------------------------------------
-export LLVM_DIR="$SWHOME/llvm_21.x"
-export LLVM_BIN="$LLVM_DIR/bin"
-export LLVM_LIB="$LLVM_DIR/lib"
-export LLVM_INCLUDE="$LLVM_DIR/include"
 
-# export HWLOC_DIR="$SWHOME/hwloc_2.12"
-# export HWLOC_BIN="$HWLOC_DIR/bin"
-# export HWLOC_INCLUDE="$HWLOC_DIR/include"
-# export HWLOC_LIB="$HWLOC_DIR/lib"
-
-# export LIBEV_DIR="$SWHOME/libev_4.33"
-# export LIBEV_BIN="$LIBEV_DIR/bin"
-# export LIBEV_LIB="$LIBEV_DIR/lib"
-# export LIBEV_INCLUDE="$LIBEV_DIR/include"
-
-# export LIBEVENT_DIR="$SWHOME/libevent_2.1.12"
-# export LIBEVENT_BIN="$LIBEVENT_DIR/bin"
-# export LIBEVENT_LIB="$LIBEVENT_DIR/lib"
-# export LIBEVENT_INCLUDE="$LIBEVENT_DIR/include"
+export LIBEV_DIR="$SWHOME/libev_4.33"
+export LIBEV_BIN="$LIBEV_DIR/bin"
+export LIBEV_LIB="$LIBEV_DIR/lib"
+export LIBEV_INCLUDE="$LIBEV_DIR/include"
 
 export LIBFABRIC_DIR="$SWHOME/libfabric-2.3.1"
 export LIBFABRIC_BIN="$LIBFABRIC_DIR/bin"
@@ -56,6 +42,7 @@ export LIBFABRIC_INCLUDE="$LIBFABRIC_DIR/include"
 
 # export PMIX_DIR="$SWHOME/pmix_6.0.0".    # Incompatible with PRRTE v3 (embedded in OMPI v5)
 export PMIX_DIR="$SWHOME/pmix_5.0.3"
+# export PMIX_DIR=/opt/apps/nfs/spack-v0.23/opt/spack/linux-rocky9-zen4/gcc-11.4.1/pmix-5.0.3-735lncs2efktvnkbxlwp7okfsbc3euhu
 export PMIX_BIN="$PMIX_DIR/bin"
 export PMIX_LIB="$PMIX_DIR/lib"
 export PMIX_INCLUDE="$PMIX_DIR/include"
@@ -72,10 +59,6 @@ export OMPI_BIN="$OMPI_DIR/bin"
 export OMPI_LIB="$OMPI_DIR/lib"
 export OMPI_INCLUDE="$OMPI_DIR/include"
 
-# export MPICH_DIR="$SWHOME/mpich_4.3.0"
-# export MPICH_BIN="$MPICH_DIR/bin"
-# export MPICH_LIB="$MPICH_DIR/lib"
-# export MPICH_INCLUDE="$MPICH_DIR/include"
 
 export SOS_DIR="$SWHOME/sos_1.5"
 export SOS_BIN="$SOS_DIR/bin"
@@ -86,11 +69,6 @@ export OSSS_DIR="$SWHOME/osss-ucx_1.5"
 export OSSS_BIN="$OSSS_DIR/bin"
 export OSSS_LIB="$OSSS_DIR/lib"
 export OSSS_INCLUDE="$OSSS_DIR/include"
-
-# export OSSS_TESTING_DIR="$HOME/lanl/shmem/osss/osss-ucx_v1.5/build/install"
-# export OSSS_TESTING_BIN="$OSSS_TESTING_DIR/bin"
-# export OSSS_TESTING_LIB="$OSSS_TESTING_DIR/lib"
-# export OSSS_TESTING_INCLUDE="$OSSS_TESTING_DIR/include"
 
 export SCOREP_DIR="$SWHOME/scorep_9.4"
 export SCOREP_BIN="$SCOREP_DIR/bin"

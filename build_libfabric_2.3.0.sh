@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# build libfabric
+#  - 
+
 HLINE="--------------------------------------------"
 
 # Set installation directory
@@ -29,6 +32,7 @@ echo ; echo
 echo $HLINE
 echo "            CONFIGURING"
 echo $HLINE
+
 ./configure               \
   --prefix=$LIBFABRIC_DIR        \
   --enable-verbs \
@@ -38,8 +42,8 @@ echo $HLINE
   --disable-usnic \
   --disable-udp \
   --disable-rxd
-# psm3, psm2, and opx don't work on this machine
-#   --disable-tcp \
+# disables other providers to prioritize verbs+ofi_rxm
+# psm3, psm2, and opx don't work on REPACSS
 
 echo $HLINE
 echo "            COMPILING"

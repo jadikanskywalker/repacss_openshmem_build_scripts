@@ -29,9 +29,6 @@ mkdir -p $PREFIX
   --with-cm \
   --with-cma
 
-  # --with-kmem
-  # --with-gdrcopy
-
 make -j $CORES
 make -j $CORES install
 
