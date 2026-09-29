@@ -73,11 +73,6 @@ echo "PREFIX: $PREFIX"
     # --with-zlib=/opt/apps/nfs/spack-v0.23/opt/spack/linux-rocky9-zen3/gcc-11.4.1/zlib-ng-2.2.1-xefdd3cjoqkqzrf44pw7sohpi2djmv6h \
     # --with-hwloc=/opt/apps/nfs/spack-v0.23/opt/spack/linux-rocky9-zen4/gcc-11.4.1/hwloc-2.11.1-euhnwwgwuxnsyfbhstyvmbmwll2bbhwu \
 
-    #\
-    #-with-libevent=/usr \
-    #--with-libevent-lib=/usr/lib64 \
-    #--with-tm
-
 # Build and install Open MPI
 make -j $(( $(nproc) - 1 )) install
 
