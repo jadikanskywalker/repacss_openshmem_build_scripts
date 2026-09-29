@@ -7,7 +7,7 @@ shouldn't source the former.
 
 In general, all MPI/SHMEM librariers require PMIX.
 
-1. libev + pmix
+libev + pmix
 ================
 PMIX is a library that configures distributed memory runtimes for
 many MPI and OpenSHMEM libraries. REPACSS does not have slurm plugins
